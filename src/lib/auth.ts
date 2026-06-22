@@ -3,10 +3,18 @@ import { prismaAdapter } from "@better-auth/prisma-adapter";
 import { prisma } from "./prisma";
 import { nextCookies } from "better-auth/next-js";
 
+function normalizeUrl(url: string): string {
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    return `https://${url}`
+  }
+  return url
+}
+
 const baseUrl = process.env.BETTER_AUTH_URL
-  ?? (process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : "http://localhost:3000")
+  ? normalizeUrl(process.env.BETTER_AUTH_URL)
+  : process.env.NEXT_PUBLIC_VERCEL_URL
+    ? normalizeUrl(process.env.NEXT_PUBLIC_VERCEL_URL)
+    : "http://localhost:3000"
 
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET ?? (
