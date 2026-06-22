@@ -1,7 +1,7 @@
-import { stripe } from "@/lib/stripe"
+import { getStripe } from "@/lib/stripe"
 
 export async function createPaymentIntent(amount: number, currency = "usd") {
-  const intent = await stripe.paymentIntents.create({
+  const intent = await getStripe().paymentIntents.create({
     amount: Math.round(amount * 100),
     currency,
     automatic_payment_methods: { enabled: true },
@@ -10,20 +10,20 @@ export async function createPaymentIntent(amount: number, currency = "usd") {
 }
 
 export async function retrievePaymentIntent(id: string) {
-  return stripe.paymentIntents.retrieve(id)
+  return getStripe().paymentIntents.retrieve(id)
 }
 
 export async function confirmPaymentIntent(id: string) {
-  return stripe.paymentIntents.confirm(id)
+  return getStripe().paymentIntents.confirm(id)
 }
 
 export async function cancelPaymentIntent(id: string) {
-  return stripe.paymentIntents.cancel(id)
+  return getStripe().paymentIntents.cancel(id)
 }
 
 export async function constructWebhookEvent(payload: string, signature: string) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET ?? ""
-  return stripe.webhooks.constructEvent(payload, signature, webhookSecret)
+  return getStripe().webhooks.constructEvent(payload, signature, webhookSecret)
 }
 
 export async function createExpressCheckoutSession(items: {
@@ -44,7 +44,7 @@ export async function createExpressCheckoutSession(items: {
     quantity: item.quantity,
   }))
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "payment",
     line_items: lineItems,
     payment_method_types: ["card"],
