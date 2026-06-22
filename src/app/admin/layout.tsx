@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma"
 import { AdminSidebar } from "@/components/admin/admin-sidebar"
 import { AdminNavbar } from "@/components/admin/admin-navbar"
 
+export const dynamic = "force-dynamic"
+
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth.api.getSession({ headers: await headers() })
 
