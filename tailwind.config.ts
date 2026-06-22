@@ -1,0 +1,173 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  darkMode: "class",
+  content: [
+    "./src/app/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}",
+    "./src/lib/**/*.{ts,tsx}",
+    "./src/providers/**/*.{ts,tsx}",
+    "./src/hooks/**/*.{ts,tsx}",
+    "./src/stores/**/*.{ts,tsx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        heading: ["var(--font-heading)", "Inter", "Arial", "sans-serif"],
+        sans: ["var(--font-sans)", "Arial", "sans-serif"],
+        mono: ["var(--font-mono)", "SFMono-Regular", "Consolas", "monospace"],
+      },
+      fontSize: {
+        "display-1": ["clamp(3rem, 8vw, 8rem)", { lineHeight: "0.95", letterSpacing: "-0.04em", fontWeight: "800" }],
+        "display-2": ["clamp(2rem, 5vw, 5rem)", { lineHeight: "0.95", letterSpacing: "-0.03em", fontWeight: "800" }],
+        "heading-1": ["clamp(1.75rem, 3.5vw, 3rem)", { lineHeight: "1.05", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "heading-2": ["clamp(1.5rem, 2.5vw, 2rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "heading-3": ["clamp(1.25rem, 1.5vw, 1.5rem)", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "body-base": ["0.9375rem", { lineHeight: "1.6" }],
+        "body-sm": ["0.875rem", { lineHeight: "1.5" }],
+        caption: ["0.8125rem", { lineHeight: "1.4", letterSpacing: "0.01em" }],
+        overline: ["0.75rem", { lineHeight: "1", letterSpacing: "0.08em", fontWeight: "600" }],
+      },
+      boxShadow: {
+        xs: "0 0 0 1px rgba(0,0,0,0.04)",
+        sm: "0 1px 2px rgba(0,0,0,0.04)",
+        md: "0 4px 16px rgba(0,0,0,0.06)",
+        lg: "0 8px 32px rgba(0,0,0,0.08)",
+        xl: "0 16px 48px rgba(0,0,0,0.10)",
+        "2xl": "0 24px 64px rgba(0,0,0,0.12)",
+        luxury: "0 24px 80px rgb(0 0 0 / 0.08)",
+        hairline: "0 0 0 1px rgb(17 17 17 / 0.08)",
+        "soft-white": "0 4px 24px rgba(255,255,255,0.15)",
+      },
+      borderRadius: {
+        none: "0px",
+        sm: "2px",
+        DEFAULT: "4px",
+        md: "8px",
+        lg: "12px",
+        xl: "16px",
+        "2xl": "24px",
+      },
+      spacing: {
+        18: "4.5rem",
+        22: "5.5rem",
+        30: "7.5rem",
+        34: "8.5rem",
+        38: "9.5rem",
+        50: "12.5rem",
+        68: "17rem",
+        88: "22rem",
+        100: "25rem",
+        120: "30rem",
+        128: "32rem",
+        144: "36rem",
+        160: "40rem",
+        192: "48rem",
+        256: "64rem",
+      },
+      screens: {
+        xs: "320px",
+        sm: "375px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1440px",
+        "2xl": "1920px",
+      },
+      keyframes: {
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(16px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "scale-in": {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "slide-up": {
+          "0%": { opacity: "0", transform: "translateY(40px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-down": {
+          "0%": { opacity: "0", transform: "translateY(-20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-in-right": {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        "slide-out-right": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        "noise-animation": {
+          "0%": { transform: "translate(0, 0)" },
+          "10%": { transform: "translate(-5%, -5%)" },
+          "20%": { transform: "translate(-10%, 5%)" },
+          "30%": { transform: "translate(5%, -10%)" },
+          "40%": { transform: "translate(-5%, 15%)" },
+          "50%": { transform: "translate(-10%, 5%)" },
+          "60%": { transform: "translate(15%, 0)" },
+          "70%": { transform: "translate(0, 10%)" },
+          "80%": { transform: "translate(-15%, 0)" },
+          "90%": { transform: "translate(10%, 5%)" },
+          "100%": { transform: "translate(5%, 0)" },
+        },
+      },
+      animation: {
+        "fade-up": "fade-up 300ms ease-out both",
+        "fade-in": "fade-in 300ms ease-out both",
+        "scale-in": "scale-in 300ms ease-out both",
+        "slide-up": "slide-up 600ms ease-out both",
+        "slide-down": "slide-down 400ms ease-out both",
+        "slide-in-right": "slide-in-right 300ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "slide-out-right": "slide-out-right 300ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "accordion-down": "accordion-down 200ms ease-out",
+        "accordion-up": "accordion-up 200ms ease-out",
+        "spin-slow": "spin-slow 8s linear infinite",
+        float: "float 3s ease-in-out infinite",
+        "pulse-soft": "pulse-soft 2s ease-in-out infinite",
+        shimmer: "shimmer 2s linear infinite",
+        noise: "noise-animation 0.5s steps(4) infinite",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "out-quart": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "in-out-quart": "cubic-bezier(0.76, 0, 0.24, 1)",
+      },
+      backgroundImage: {
+        "noise-light": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E\")",
+        "noise-dark": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E\")",
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
