@@ -2,7 +2,17 @@ import type { Metadata } from "next"
 
 const SITE_NAME = "M4vx"
 const SITE_DESCRIPTION = "Premium products curated for modern lifestyles."
-const BASE_URL = process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000"
+
+function normalizeUrl(url: string): string {
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    return `https://${url}`
+  }
+  return url
+}
+
+const BASE_URL = process.env.NEXT_PUBLIC_VERCEL_URL
+  ? normalizeUrl(process.env.NEXT_PUBLIC_VERCEL_URL)
+  : "http://localhost:3000"
 
 export function createMetadata(overrides: {
   title: string

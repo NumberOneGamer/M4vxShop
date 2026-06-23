@@ -13,10 +13,17 @@ const inter = Inter({
   adjustFontFallback: true,
 });
 
+function normalizeUrl(url: string): string {
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    return `https://${url}`
+  }
+  return url
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      ? normalizeUrl(process.env.NEXT_PUBLIC_VERCEL_URL)
       : "http://localhost:3000"
   ),
   title: {

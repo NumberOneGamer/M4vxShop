@@ -1,5 +1,18 @@
 import { getStripe } from "@/lib/stripe"
 
+function normalizeUrl(url: string): string {
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    return `https://${url}`
+  }
+  return url
+}
+
+function baseUrl() {
+  return process.env.NEXT_PUBLIC_VERCEL_URL
+    ? normalizeUrl(process.env.NEXT_PUBLIC_VERCEL_URL)
+    : "http://localhost:3000"
+}
+
 export async function createPaymentIntent(amount: number, currency = "usd") {
   const intent = await getStripe().paymentIntents.create({
     amount: Math.round(amount * 100),
@@ -48,8 +61,8 @@ export async function createExpressCheckoutSession(items: {
     mode: "payment",
     line_items: lineItems,
     payment_method_types: ["card"],
-    success_url: `${process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000"}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000"}/checkout`,
+    success_url: `${baseUrl()}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${baseUrl()}/checkout`,
   })
 
   return session
