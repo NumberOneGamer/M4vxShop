@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client.js";
+import { hashPassword } from "better-auth/crypto";
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL!,
@@ -483,22 +484,25 @@ async function main() {
   await prisma.user.deleteMany();
 
   // Create users
+  const adminPasswordHash = await hashPassword("Admin@123")
   const adminUser = await prisma.user.create({
     data: {
       email: "admin@m4vx.com",
       name: "M4vx Admin",
       role: "ADMIN",
       emailVerified: true,
+      passwordHash: adminPasswordHash,
     },
   });
   console.log(`  ✓ Admin user: ${adminUser.email}`);
 
+  const userPasswordHash = await hashPassword("Test@123")
   const testUsers = await Promise.all([
-    prisma.user.create({ data: { email: "alex@example.com", name: "Alex Morgan", role: "CUSTOMER", emailVerified: true } }),
-    prisma.user.create({ data: { email: "sam@example.com", name: "Sam Chen", role: "CUSTOMER", emailVerified: true } }),
-    prisma.user.create({ data: { email: "jordan@example.com", name: "Jordan Lee", role: "CUSTOMER", emailVerified: true } }),
-    prisma.user.create({ data: { email: "taylor@example.com", name: "Taylor Smith", role: "CUSTOMER", emailVerified: true } }),
-    prisma.user.create({ data: { email: "riley@example.com", name: "Riley Johnson", role: "CUSTOMER", emailVerified: true } }),
+    prisma.user.create({ data: { email: "alex@example.com", name: "Alex Morgan", role: "CUSTOMER", emailVerified: true, passwordHash: userPasswordHash } }),
+    prisma.user.create({ data: { email: "sam@example.com", name: "Sam Chen", role: "CUSTOMER", emailVerified: true, passwordHash: userPasswordHash } }),
+    prisma.user.create({ data: { email: "jordan@example.com", name: "Jordan Lee", role: "CUSTOMER", emailVerified: true, passwordHash: userPasswordHash } }),
+    prisma.user.create({ data: { email: "taylor@example.com", name: "Taylor Smith", role: "CUSTOMER", emailVerified: true, passwordHash: userPasswordHash } }),
+    prisma.user.create({ data: { email: "riley@example.com", name: "Riley Johnson", role: "CUSTOMER", emailVerified: true, passwordHash: userPasswordHash } }),
   ]);
 
   // Create categories
@@ -721,8 +725,8 @@ async function main() {
   console.log("");
   console.log("✅ Database seeded successfully!");
   console.log("");
-  console.log("  Admin: admin@m4vx.com");
-  console.log("  Users: alex@example.com, sam@example.com");
+  console.log("  Admin: admin@m4vx.com / Admin@123");
+  console.log("  Users: alex@example.com, sam@example.com / Test@123");
   console.log(`  Products: ${products.length}`);
   console.log(`  Categories: ${categories.length}`);
   console.log("  3 Coupons: WELCOME10, FREESHIP, SUMMER25");
